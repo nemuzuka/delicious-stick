@@ -1,4 +1,4 @@
-SickIntent 具合悪い
-SickIntent ぐあい悪い
-SickIntent 具合わるい
-SickIntent ぐあいわるい
+SickIntent 会社に連絡
+SickIntent かいしゃに連絡
+SickIntent 会社にれんらく
+SickIntent かいしゃにれんらく
