@@ -38,6 +38,7 @@ object SlackNotification {
     val jsonStr = mapper.writeValueAsString(Param(text = s"$name\n$msg"))
     val request = Request(url).body(jsonStr.getBytes(HTTP.DEFAULT_CHARSET), "application/json")
     val response = HTTP.post(request)
+    println(response)
     if (200 <= response.status && response.status <= 399) None else Option((response.status, response.textBody))
   }
 

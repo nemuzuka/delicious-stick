@@ -13,9 +13,10 @@ class VssSpeechlet extends Speechlet {
   override def onLaunch(request: LaunchRequest, session: Session): VssSpeechletResponse = {
     logInvocation("onLaunch", request, session)
 
-    val outputSpeech = new VssPlainTextOutputSpeech("お大事に")
+    //通知
+    SlackNotification.send()
 
-    new VssSpeechletResponse(outputSpeech)
+    new VssSpeechletResponse(new VssPlainTextOutputSpeech("承知しました、飲み過ぎましたか？"))
   }
 
   override def onIntent(request: IntentRequest, session: Session): VssSpeechletResponse = {
