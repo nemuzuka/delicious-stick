@@ -11,13 +11,15 @@ object SlackNotification {
 
   /**
     * slack通知.
+    * 環境変数のSLACK_URLが未指定の場合、SLACKへの通知は行いません
     */
   def send(): Unit = {
-
     val url = sys.env.getOrElse("SLACK_URL", "")
-    val name = sys.env.getOrElse("SLACK_NAME", "dummy")
-    val msg = sys.env.getOrElse("SLACK_MESSAGE", "今日はお休みします...")
-    send(url=url, name=name, msg=msg)
+    if(url.nonEmpty) {
+      val name = sys.env.getOrElse("SLACK_NAME", "dummy")
+      val msg = sys.env.getOrElse("SLACK_MESSAGE", "今日はお休みします...")
+      send(url=url, name=name, msg=msg)
+    }
   }
 
   /**

@@ -27,6 +27,14 @@ lambdaとして登録されます。
 
 **その後、`Alexa Skill Kit`との関連を手動で行ってください**
 
+lambdaの環境変数には以下を設定する必要があります
+- SLACK_URL
+    - SlackのWebhookのURL
+- SLACK_NAME
+    - メッセージ内に含まれる名前
+- SLACK_MESSAGE
+    - メッセージ
+
 functionの変更は以下を実行します
 
 ```
