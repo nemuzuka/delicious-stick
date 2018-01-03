@@ -12,7 +12,7 @@ lazy val root = (project in file(".")).
 
 lazy val dependencies = Seq(
     "com.amazon.alexa" % "alexa-skills-kit" % "1.8.1",
-    "com.fasterxml.jackson.module" % "jackson-module-scala_2.12" % "2.9.2",
+    "org.json4s" % "json4s-jackson_2.12" % "3.5.3",
     "com.amazonaws" % "aws-lambda-java-core" % "1.2.0",
     "org.skinny-framework" %% "skinny-http-client" % "2.5.2"
 )

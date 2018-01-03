@@ -1,7 +1,7 @@
 package net.jp.vss
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import org.json4s.NoTypeHints
+import org.json4s.jackson.Serialization
 import skinny.http.{HTTP, Request}
 
 /**
@@ -33,9 +33,9 @@ object SlackNotification {
     * @return 正常終了しなかった時のエラーメッセージ _1:HTTPステータスコード _2:エラーbody (正常終了時はNone)
     */
   private[this] def send(url: String, name: String, msg: String): Option[(Int, String)] = {
-    val mapper = new ObjectMapper
-    mapper.registerModule(DefaultScalaModule)
-    val jsonStr = mapper.writeValueAsString(Param(text = s"$name\n$msg"))
+
+    implicit val formats = Serialization.formats(NoTypeHints)
+    val jsonStr = Serialization.write(Param(text = s"$name\n$msg"))
     val request = Request(url).body(jsonStr.getBytes(HTTP.DEFAULT_CHARSET), "application/json")
     val response = HTTP.post(request)
     println(response.toString)
