@@ -12,9 +12,10 @@ lazy val root = (project in file(".")).
 
 lazy val dependencies = Seq(
     "com.amazon.alexa" % "alexa-skills-kit" % "1.8.1",
-    "org.json4s" % "json4s-jackson_2.12" % "3.5.3",
+    "org.json4s" %% "json4s-jackson" % "3.5.3",
     "com.amazonaws" % "aws-lambda-java-core" % "1.2.0",
-    "org.skinny-framework" %% "skinny-http-client" % "2.5.2"
+    "org.skinny-framework" %% "skinny-http-client" % "2.5.2",
+    "com.amazonaws" % "aws-lambda-java-log4j" % "1.0.0"
 )
 
 assemblyMergeStrategy in assembly := {

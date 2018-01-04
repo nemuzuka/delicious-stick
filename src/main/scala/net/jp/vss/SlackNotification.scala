@@ -2,12 +2,15 @@ package net.jp.vss
 
 import org.json4s.NoTypeHints
 import org.json4s.jackson.Serialization
+import org.slf4j.{Logger, LoggerFactory}
 import skinny.http.{HTTP, Request}
 
 /**
   * 各種通知.
   */
 object SlackNotification {
+
+  val LOG : Logger = LoggerFactory.getLogger(this.getClass)
 
   /**
     * slack通知.
@@ -38,7 +41,7 @@ object SlackNotification {
     val jsonStr = Serialization.write(Param(text = s"$name\n$msg"))
     val request = Request(url).body(jsonStr.getBytes(HTTP.DEFAULT_CHARSET), "application/json")
     val response = HTTP.post(request)
-    println(response.toString)
+    LOG.info(response.toString)
     if (200 <= response.status && response.status <= 399) None else Option((response.status, response.textBody))
   }
 

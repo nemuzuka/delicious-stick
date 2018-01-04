@@ -3,8 +3,11 @@ package net.jp.vss
 import com.amazon.speech.speechlet._
 import net.jp.vss.speech.ui.VssPlainTextOutputSpeech
 import net.jp.vss.speech.speechlet.VssSpeechletResponse
+import org.slf4j.{Logger, LoggerFactory}
 
 class VssSpeechlet extends Speechlet {
+
+  val LOG : Logger = LoggerFactory.getLogger(this.getClass)
 
   override def onSessionStarted(request: SessionStartedRequest, session: Session): Unit = {
     logInvocation("onSessionStarted", request, session)
@@ -16,7 +19,7 @@ class VssSpeechlet extends Speechlet {
     //通知
     SlackNotification.send()
 
-    new VssSpeechletResponse(new VssPlainTextOutputSpeech("承知しました、飲み過ぎましたか？"))
+    new VssSpeechletResponse(new VssPlainTextOutputSpeech("承知しました、スラックで連絡しておきますね"))
   }
 
   override def onIntent(request: IntentRequest, session: Session): VssSpeechletResponse = {
@@ -35,6 +38,6 @@ class VssSpeechlet extends Speechlet {
   private def logInvocation(name: String, request: SpeechletRequest, session: Session): Unit = {
     val requestId = request.getRequestId
     val sessionId = session.getSessionId
-    println(s"$name requestId=$requestId sessionId=$sessionId")
+    LOG.info(s"$name requestId=$requestId sessionId=$sessionId")
   }
 }
