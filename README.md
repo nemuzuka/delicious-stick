@@ -9,25 +9,23 @@
 
 ## はじめに
 
-設定情報を準備します。
+### 1. Lambda functionを登録
 
-```
-$ cp example-env.sh env.sh
-//editorで env.shを編集してください
-$ . env.sh
-```
+- 名前
+    - 任意の文字列
+- ランタイム
+    - Java8
+- ハンドラ
+    - net.jp.vss.VssSpeechletRequestStreamHandler
+- 実行ロール
+    - S3オブジェクトの読み取り専用アクセス権限 が追加で必要
+- メモリ
+    - 192MB くらい
+- タイムアウト
+    - 1分 くらい
 
-このプロジェクトをビルドして登録する場合は以下を実行します
+Lambdaの環境変数には以下を設定する必要があります
 
-```
-$ sbt createLambda
-```
-
-lambdaとして登録されます。
-
-**その後、`Alexa Skill Kit`との関連を手動で行ってください**
-
-lambdaの環境変数には以下を設定する必要があります
 - SLACK_URL
     - SlackのWebhookのURL
 - SLACK_NAME
@@ -35,15 +33,32 @@ lambdaの環境変数には以下を設定する必要があります
 - SLACK_MESSAGE
     - メッセージ
 
-functionの変更は以下を実行します
+### 2. `Alexa Skill Kit`の設定
+
+
+### 3. モジュールの準備
 
 ```
+$ cp example-env.sh env.sh
+```
+
+エディタで env.shに対して登録したLambda functionの内容で編集してください
+
+```
+$ . ./env.sh
 $ sbt updateLambda
 ```
+Lambada functionのモジュールを更新します。指定したS3のbucketにuploadし、Lambdaのモジュールとして設定します
 
-インテントスキーマの設定は `alexa/` ディレクトリに保存します。
 
 ## 使い方
+
+例えば、スキルの呼び出し名を
+
+- 会社に連絡
+
+とした場合、
+
 `Alexa、会社に連絡をして`
 
-- 会社に連絡(スキルの呼び出し名)
+と話しかけることで、Slackに通知します
